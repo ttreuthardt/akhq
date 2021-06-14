@@ -14,7 +14,6 @@ import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.reactivex.Flowable;
 import lombok.extern.slf4j.Slf4j;
-import org.akhq.controllers.AkhqController;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
@@ -46,9 +45,6 @@ public class OidcAuthenticationProviderTest {
 
     @Inject
     DefaultOpenIdProviderMetadata defaultOpenIdProviderMetadata;
-
-    @Inject
-    AkhqController akhqController;
 
     @Named("oidc")
     @MockBean(TokenEndpointClient.class)
@@ -233,14 +229,5 @@ public class OidcAuthenticationProviderTest {
 
         assertThat(authenticationException.getResponse(), instanceOf(AuthenticationFailed.class));
         assertFalse(authenticationException.getResponse().isAuthenticated());
-    }
-
-    @Test
-    void noLoginForm(){
-        AkhqController.AuthDefinition actual = akhqController.auths();
-
-        assertTrue(actual.isLoginEnabled(), "Login must be enabled with OIDC");
-        assertFalse(actual.isFormEnabled(), "Login Form must not be active if only OIDC is enabled");
-        assertFalse(actual.getOidcAuths().isEmpty());
     }
 }
