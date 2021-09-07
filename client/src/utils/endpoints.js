@@ -59,7 +59,7 @@ export const uriTopicData = (
   nextPage = ''
 ) => {
   if (nextPage !== '') {
-    return basePath + nextPage;
+    return nextPage;
   }
 
   let uri = `${apiUrl}/${clusterId}/topic/${topicId}/data?${filters}`;
